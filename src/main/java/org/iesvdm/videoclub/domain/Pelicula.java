@@ -3,6 +3,7 @@ package org.iesvdm.videoclub.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,15 +31,16 @@ public class Pelicula {
     private String titulo;
     private String descripcion;
     @Column(name = "anyo_lanzamiento")
-    @DateTimeFormat(pattern="yyyy")
+    @JsonFormat(pattern = "yyyy",  shape = JsonFormat.Shape.STRING)
     private Date anyoLanzamiento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "id_idioma", nullable = false)
     private Idioma idioma;
 
     @ManyToOne()
     @JoinColumn(name = "id_idioma_original")
+
     private Idioma idiomaOriginal;
 
     @Column(name = "duracion_alquiler")

@@ -1,6 +1,8 @@
 package org.iesvdm.videoclub.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+//Si utilizo @OneToMany(FetchType.LAZY) además debo usar
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Idioma {
 
     @Id
@@ -26,6 +30,7 @@ public class Idioma {
     private String nombre;
 
     @Column(name = "ultima_actualizacion")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
     private Date ultimaActualizacion;
 
     @OneToMany(mappedBy = "idioma")
