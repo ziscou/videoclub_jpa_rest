@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="d-flex justify-content-center row">
+    <div class="col-md-6">
+      <h4>Lista de Categorías</h4>
+    </div>
+    <div class="col-md-6">
+      <a routerLink="/categoria/create" class="btn btn-success float-md-end" style="margin-left: 2px; margin-top: 2px;">Crear Nueva Categoría</a>
+    </div>
+  </div>
+  <div class="row top5">
+    <div class="col-md-3 border-bottom"><h5>Id</h5></div>
+    <div class="col-md-3 border-bottom"><h5>Nombre</h5></div>
+    <div class="col-md-3 border-bottom"><h5>Última actualización</h5></div>
+    <div class="col-md-3 border-bottom d-md-flex justify-content-md-center"><h5>Acción</h5></div>
+  </div>
+  <div *ngFor="let categoria of categorias" class="row top5 align-items-center">
+    <div class="col-md-3">{{ categoria.id }}</div>
+    <div class="col-md-3">{{ categoria.nombre }}</div>
+    <div class="col-md-3">{{ categoria.ultimaActualizacion | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
+
+    <div class="col-md-3 d-md-flex justify-content-md-center">
+      <button type="button" [routerLink]="['/categoria/', 'edit', categoria.id  ]" class="btn btn-secondary" style="margin-left: 2px; margin-top: 2px;">Editar</button>
+      <button type="button" (click)="deleteCategoria(categoria.id)" class="btn btn-danger" style="margin-left: 2px; margin-top: 2px;">Eliminar</button>
+
+    </div>
+  </div>
+</div>

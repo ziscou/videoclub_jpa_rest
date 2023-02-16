@@ -40,7 +40,6 @@ public class Pelicula {
 
     @ManyToOne()
     @JoinColumn(name = "id_idioma_original")
-
     private Idioma idiomaOriginal;
 
     @Column(name = "duracion_alquiler")

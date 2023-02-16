@@ -1,0 +1,29 @@
+<div>
+
+  <div class="d-flex justify-content-between">
+    <h4>Categoría</h4>
+    <a href="#" routerLink="/categoria/index" class="btn">Volver</a>
+  </div>
+
+  <hr/>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div class="form-group row">
+      <div class="col-md-6 ">
+        <label for="nombre">Nombre:</label>
+        <input
+          formControlName="nombre"
+          id="nombre"
+          type="text"
+          class="form-control">
+        <div *ngIf="f.nombre.touched && f.nombre.invalid" class="alert alert-danger">
+          <div *ngIf="f.nombre.errors.required">*Nombre es requerido.</div>
+          <div *ngIf="f.nombre.errors.pattern">*El nombre sólo puede contener letras.</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary mt-1" type="submit" [disabled]="!form.valid">Enviar</button>
+  </form>
+</div>
