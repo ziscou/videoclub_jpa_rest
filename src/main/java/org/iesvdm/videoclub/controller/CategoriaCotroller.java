@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.videoclub.domain.Categoria;
 import org.iesvdm.videoclub.service.CategoriaService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -20,16 +22,28 @@ public class CategoriaCotroller {
         this.categoriaService = categoriaService;
     }
 
-    @GetMapping(value = {"", "/"}, params = {"!buscar", "!ordenar"})
+    @GetMapping(value = {"", "/"}, params = {"!buscar", "!ordenar", "!pagina", "!tamanio"})
     public List<Categoria> all(){
         log.info("Accediendo a todas las Categorias");
         return this.categoriaService.all();
     }
-    @GetMapping(value = {"", "/"})
-    public List<Categoria> all(@RequestParam("buscar")Optional<String> buscarOptional,
-                               @RequestParam("ordenar") Optional<String> ordenarOptional){
+
+    @GetMapping(value = {"", "/"}, params = {"!buscar", "!ordenar"})
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "1")int pag,
+                                                   @RequestParam(value = "tamanio", defaultValue = "3") int tam){
         log.info("Accediendo a todas las Categorias");
-        return this.categoriaService.allFilters(buscarOptional, ordenarOptional);
+        Map<String, Object> map = this.categoriaService.all(pag, tam);
+        return ResponseEntity.ok(map);
+    }
+    @GetMapping(value = {"", "/"})
+    public ResponseEntity<Map<String, Object>> all(@RequestParam("buscar")Optional<String> buscarOptional,
+                               @RequestParam("ordenar") Optional<String> ordenarOptional,
+                               @RequestParam(value = "pagina", defaultValue = "1")int pag,
+                               @RequestParam(value = "tamanio", defaultValue = "3") int tam){
+        log.info("Accediendo a todas las Categorias");
+        Map<String, Object> map = this.categoriaService.all(pag,tam,buscarOptional,ordenarOptional);
+
+        return ResponseEntity.ok(map);
     }
 
     @PostMapping({"", "/"})
